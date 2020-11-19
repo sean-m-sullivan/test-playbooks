@@ -1,3 +1,2 @@
 collections:
-  - name: openstack.cloud
   - name: awx.awx
