@@ -1,0 +1,62 @@
+- name: Launch VRF workflows
+  hosts: localhost
+  connection: local
+  gather_facts: false
+            
+  tasks:
+    - name: set namespace collections
+      uri:
+        url: "https://192.168.122.239/api/galaxy/v3/namespaces/"
+        method: POST
+        validate_certs: no
+        status_code: [201]
+        headers:
+          Content-Type: application/json
+          Authorization: "token 9c083a958a2f8522d8dc39e3db83e445fe6442b9"
+        body_format: json  
+        body:
+          name: aaaaa
+          company: Redhat
+          email: user@example.com
+          avatar_url: https://static.redhat.com/libs/redhat/brand-assets/latest/corp/logo.svg
+          description: string
+          resources: "# Redhat\nA Namespace test with changes"
+          links:
+            - name: "homepage"
+              url: "http://www.google.com"
+          groups:
+            - name: admins
+              object_permissions:
+                - "change_namespace"
+                - "upload_to_namespace"
+
+#            - name: test
+      register: test
+#      ignore_errors: true
+    - debug:
+        var: test
+
+#    - name: get collections
+#      uri:
+#        url: "http://192.168.122.239:8002/api/automation-hub/v3/namespaces"
+#        method: "GET"
+#        validate_certs: no
+#        status_code: [200]
+#        headers:
+#          Authorization: "token 1185cf5f4dfc8b2529fa27138778e9ac2b81bb89"
+#      register: test
+#    - debug:
+#        var: test
+
+#    - name: get collections
+#      uri:
+#        url: "https://galaxy.ansible.com/api/v2/collections/?offset=0&limit=10"
+#        method: "GET"
+#        validate_certs: no
+#        status_code: [200]
+#        headers:
+#          Authorization: "token 3984ce1f1dc75fa6c8884444e711712cfd52e592"
+#      register: test
+#    - debug:
+#        var: test
+
